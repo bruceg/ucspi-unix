@@ -8,6 +8,7 @@ Source: http://em.ca/~bruceg/ucspi-unix/%{version}/ucspi-unix-%{version}.tar.gz
 BuildRoot: %{_tmpdir}/ucspi-unix-root
 URL: http://em.ca/~bruceg/ucspi-unix/
 Packager: Bruce Guenter <bruceg@em.ca>
+BuildReq: bglibs
 
 %description
 unixclient and unixserver are command-line tools for building UNIX
@@ -25,12 +26,15 @@ for several different networks.
 
 %build
 echo %{_bindir} >conf-bin
+echo %{_mandir} >conf-man
 make programs
 
 %install
 rm -fr %{buildroot}
 mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_mandir}
 echo %{buildroot}%{_bindir} >conf-bin
+echo %{buildroot}%{_mandir} >conf-man
 make installer instcheck
 ./installer
 ./instcheck
@@ -42,3 +46,4 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc COPYING NEWS PROTOCOL README TODO VERSION
 %{_bindir}/*
+%{_mandir}/*/*

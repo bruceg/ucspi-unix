@@ -1,0 +1,77 @@
+.TH UNIXSERVER 1
+.SH NAME
+unixserver - UNIX domain socket server
+
+.SH SYNOPSIS
+unixserver [options] socket program
+
+.SH DESCRIPTION
+Unixserver is  UNIX domain socket server that conform to UCSPI, 
+the UNIX Client-Server Program Interface.
+
+.SH OPTIONS
+.HP
+.TP
+\fB\-q \fR 
+Quiet. Do not print any messages.
+.TP
+\fB\-Q \fR 
+(default) Print error messages.
+.TP
+\fB\-v \fR
+Verbose.  Print error and status messages.
+.TP
+\fB\-d \fR 
+Do not delete the socket file on exit.
+.TP
+\fB\-D \fR
+(default) Delete the socket file on exit.
+.TP
+\fB\-u UID \fR
+Change user id to UID after creating socket.
+.TP
+\fB\-g GID \fR
+Change group id to GID after creating socket.
+.TP
+\fB\-U \fR 
+Same as '-u $UID -g $GID'.
+.TP
+\fB\-o UID\fR
+Make the socket owned by UID.
+.TP
+\fB\-r GID\fR
+Make the socket group owned by GID.
+.TP
+\fB\-O\fR
+Same as '-o $SOCKET_UID -r $SOCKET_GID'.
+.TP
+\fB\-p PERM\fR
+Set the permissions on the created socket (in octal).
+Note: this option, if set, overrides the mask below.
+(defaults to 0666 minus umask)
+.TP
+\fB\-m MASK \fR 
+Set umask to MASK (in octal) before creating socket.
+(defaults to 0, previous value is restored afterwards)
+.TP
+\fB\-c N \fR 
+Do not handle more than N simultaneous connections.
+(default 10)
+.TP
+\fB\-b N \fR
+Allow a backlog of N connections.
+.TP
+\fB\-B BANNER \fR
+Write BANNER to the client immediately after connecting.
+
+.SH SEE ALSO
+unixclient(1), unixcat(1)
+http://cr.yp.to/proto/ucspi.txt
+
+.SH AUTHOR
+ucspi-unix package was written by Bruce Guenter <bruceg@em.ca>
+
+.PP
+This manual page was originally written by Tomas Kuliavas 
+<tokul@bigfoot.com> for the Debian GNU/Linux system, 
+but may be used elsewhere under the GPL. 

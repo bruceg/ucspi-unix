@@ -1,0 +1,37 @@
+.TH UNIXCLIENT 1
+.SH NAME
+unixclient - UNIX domain socket client
+
+.SH SYNOPSIS
+unixclient [options] socket program
+
+.SH DESCRIPTION
+Unixclient is  UNIX domain socket client that conform to UCSPI, 
+the UNIX Client-Server Program Interface.
+
+.SH OPTIONS
+.HP
+.TP
+\fB\-q \fR 
+Quiet. Do not print any messages.
+.TP
+\fB\-Q \fR 
+(default) Print error messages.
+.TP
+\fB\-v \fR
+Verbose.  Print error and status messages.
+\fB\-c N \fR 
+Do not handle more than N simultaneous connections.
+(default 10)
+
+.SH SEE ALSO
+unixserver(1), unixcat(1)
+http://cr.yp.to/proto/ucspi.txt
+
+.SH AUTHOR
+ucspi-unix package was written by Bruce Guenter <bruceg@em.ca>
+
+.PP
+This manual page was originally written by Tomas Kuliavas 
+<tokul@bigfoot.com> for the Debian GNU/Linux system, 
+but may be used elsewhere under the GPL. 
