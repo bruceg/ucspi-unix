@@ -8,7 +8,7 @@ Source: http://em.ca/~bruceg/ucspi-unix/%{version}/ucspi-unix-%{version}.tar.gz
 BuildRoot: %{_tmpdir}/ucspi-unix-root
 URL: http://em.ca/~bruceg/ucspi-unix/
 Packager: Bruce Guenter <bruceg@em.ca>
-BuildReq: bglibs
+BuildRequires: bglibs
 
 %description
 unixclient and unixserver are command-line tools for building UNIX
