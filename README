@@ -2,7 +2,7 @@ ucspi-unix
 UNIX-domain socket client-server command-line tools
 Bruce Guenter <bruceg@em.ca>
 Version 0.36
-2001-05-06
+2002-06-07
 
 This package contains UNIX domain socket client and server programs that
 conform to UCSPI, the UNIX Client-Server Program Interface.
@@ -15,7 +15,7 @@ Requirements:
 
 How to install:
 
-- As root, run "make install"
+- As root, run "make ; ./installer"
 
 This program is Copyright(C) 2000 Bruce Guenter, and may be copied
 according to the GNU GENERAL PUBLIC LICENSE (GPL) Version 2 or a later
