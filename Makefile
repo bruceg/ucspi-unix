@@ -30,6 +30,8 @@ unixserver: unixserver.o env.o utoa.o
 
 unixserver.o: unixserver.c
 unixclient.o: unixclient.c
+env.o: env.c
+utoa.o: utoa.c
 
 install:
 	$(install) -d $(bindir)
