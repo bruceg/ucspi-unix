@@ -1,4 +1,9 @@
 -------------------------------------------------------------------------------
+Changes in version 0.30
+
+- Now supports UID/GID switching, setting the backlog, and printing out
+  a banner on connection in tcpserver.
+-------------------------------------------------------------------------------
 Changes in version 0.20
 
 - The environment is now set up properly according to the UCSPI

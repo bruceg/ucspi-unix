@@ -27,6 +27,10 @@ static unsigned opt_verbose = 1;
 static unsigned opt_delete = 1;
 static unsigned opt_connections = 10;
 static const char* opt_socket;
+static uid_t opt_uid = -1;
+static gid_t opt_gid = -1;
+static int opt_backlog = 128;
+static const char* opt_banner = 0;
 
 void usage(const char* message)
 {
@@ -38,8 +42,13 @@ void usage(const char* message)
 	  "  -v           Verbose.  Print error and status messages.\n"
 	  "  -d           Do not delete the socket file on exit.\n"
 	  "  -D (default) Delete the socket file on exit.\n"
+	  "  -u UID       Change user id to UID after creating socket.\n"
+	  "  -g GID       Change group id to GID after creating socket.\n"
+	  "  -U           Same as '-u $UID -g $GID'.\n"
 	  "  -c N         Do not handle more than N simultaneous connections.\n"
-	  "               (default 10)\n", argv0);
+	  "               (default 10)\n"
+	  "  -b N         Allow a backlog of N connections.\n"
+	  "  -B BANNER    Write BANNER to the client immediately after connecting.\n", argv0);
   exit(1);
 }
 
@@ -69,12 +78,32 @@ void die(const char* msg)
   exit(1);
 }
 
+void use_uid(const char* str)
+{
+  char* ptr;
+  if(!str)
+    usage("UID not found in environment.");
+  opt_uid = strtoul(optarg, &ptr, 10);
+  if(*ptr != 0)
+    usage("Invalid UID number");
+}
+
+void use_gid(const char* str)
+{
+  char* ptr;
+  if(!str)
+    usage("GID not found in environment.");
+  opt_gid = strtoul(optarg, &ptr, 10);
+  if(*ptr != 0)
+    usage("Invalid GID number");
+}
+
 void parse_options(int argc, char* argv[])
 {
   int opt;
   char* ptr;
   argv0 = argv[0];
-  while((opt = getopt(argc, argv, "qQvc:")) != EOF) {
+  while((opt = getopt(argc, argv, "qQvc:u:g:Ub:B:")) != EOF) {
     switch(opt) {
     case 'q': opt_quiet = 1; opt_verbose = 0; break;
     case 'Q': opt_quiet = 0; break;
@@ -84,8 +113,20 @@ void parse_options(int argc, char* argv[])
     case 'c':
       opt_connections = strtoul(optarg, &ptr, 10);
       if(*ptr != 0)
-	usage("Invalid GID number");
+	usage("Invalid connection limit number.");
       break;
+    case 'u': use_uid(optarg); break;
+    case 'g': use_gid(optarg); break;
+    case 'U':
+      use_uid(getenv("UID"));
+      use_gid(getenv("GID"));
+      break;
+    case 'b':
+      opt_backlog = strtoul(optarg, &ptr, 10);
+      if(*ptr != 0)
+	usage("Invalid backlog count.");
+      break;
+    case 'B': opt_banner = optarg; break;
     default:
       usage(0);
     }
@@ -112,13 +153,19 @@ int make_socket()
     die("socket");
   if(bind(s, (struct sockaddr*)saddr, SUN_LEN(saddr)) != 0)
     die("bind");
-  if(listen(s, 128) != 0)
+  if(listen(s, opt_backlog) != 0)
     die("listen");
+  if(opt_gid != (gid_t)-1 && setgid(opt_gid) == -1)
+    die("setgid");
+  if(opt_uid != (uid_t)-1 && setuid(opt_uid) == -1)
+    die("setuid");
   return s;
 }
 
 void start_child(int fd)
 {
+  if(opt_banner)
+    write(fd, opt_banner, strlen(opt_banner));
   setup_env(fd, opt_socket);
   close(0);
   close(1);
@@ -160,7 +207,7 @@ void handle_connection(int s)
   }
 }
 
-void handle_children(int sig)
+void handle_children()
 {
   pid_t pid;
   int status;
@@ -187,7 +234,7 @@ void exitfn(void)
     unlink(opt_socket);
 }
 
-void handle_intr(int sig)
+void handle_intr()
 {
   exit(0);
 }

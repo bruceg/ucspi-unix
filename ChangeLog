@@ -1,0 +1,25 @@
+2000-06-20  Bruce Guenter  <bruce@bruce-guenter.dyndns.org>
+
+	* Released version 0.30
+
+	* unixserver.c (parse_options): Parse UID and GID options.
+	(make_socket): Do setgid and setuid if they are set.
+	(parse_options): Added backlog and banner options.
+	(start_child): Write the optional banner immediately.
+
+2000-06-13  Bruce Guenter  <bruce@bruce-guenter.dyndns.org>
+
+	* unixclient.c (exec_program): Call the new setup_env.
+
+	* unixserver.c (start_child): Call the new setup_env.
+
+	* env.c (setup_env): Merged all the code used to setup environment
+	variables into this one routine, used by both unixserver and
+	unixclient.
+
+	* unixserver.c: Added the necessary code to use SO_PEERCRED to
+	retrieve socket credentials on Linux, as well as to set up the
+	environment.
+	(make_socket): Dynamically allocate the socket structure, to
+	prevent problems with long socket path names.
+
