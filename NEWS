@@ -1,9 +1,15 @@
 -------------------------------------------------------------------------------
-Changes in version 0.35
+Changes in version 0.36
 
 - Fixed a header ordering problem on FreeBSD.
 - Adjusted to SPAC build environment, including additional portability
-  fixes.
+  fixes, and external bglibs.
+- Added options for setting the ownership, group ownership, and mode of
+  the created socket.
+- Added man pages (contributed by Tomas Kuliavas)
+
+Development of this version has been sponsored by FutureQuest, Inc.
+ossi@FutureQuest.net  http://www.FutureQuest.net/
 -------------------------------------------------------------------------------
 Changes in version 0.34
 
