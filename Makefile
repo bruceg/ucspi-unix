@@ -28,6 +28,9 @@ unixclient: unixclient.o env.o utoa.o
 unixserver: unixserver.o env.o utoa.o
 	$(LD) $(LDFLAGS) -o $@ unixserver.o env.o utoa.o $(LIBS)
 
+unixserver.o: unixserver.c
+unixclient.o: unixclient.c
+
 install:
 	$(install) -d $(bindir)
 	$(install) -m 755 $(PROGS) $(SCRIPTS) $(bindir)
