@@ -16,12 +16,11 @@ install = /usr/bin/install
 
 distdir = $(PACKAGE)-$(VERSION)
 
-progs = unixserver unixclient
-sources = unixserver.c unixclient.c env.c utoa.c
-scripts = unixcat
-docs = ANNOUNCEMENT COPYING ChangeLog NEWS PROTOCOL README TODO
+PROGS = unixserver unixclient
+SOURCES = unixserver.c unixclient.c env.c utoa.c
+SCRIPTS = unixcat
 
-all: $(progs)
+all: $(PROGS)
 
 unixclient: unixclient.o env.o utoa.o
 	$(LD) $(LDFLAGS) -o $@ unixclient.o env.o utoa.o $(LIBS)
@@ -31,17 +30,7 @@ unixserver: unixserver.o env.o utoa.o
 
 install:
 	$(install) -d $(bindir)
-	$(install) -m 755 $(progs) $(scripts) $(bindir)
-
-distdir:
-	rm -rf $(distdir)
-	mkdir $(distdir)
-	cp Makefile $(sources) $(scripts) $(docs) $(distdir)
-	sed  -e "s/%VERSION%/$(VERSION)/g" $(PACKAGE).spec >$(distdir)/$(PACKAGE)-$(VERSION).spec
-
-dist: distdir
-	tar -czf $(distdir).tar.gz $(distdir)
-	rm -rf $(distdir)
+	$(install) -m 755 $(PROGS) $(SCRIPTS) $(bindir)
 
 clean:
-	$(RM) *.o $(progs)
+	$(RM) *.o $(PROGS)

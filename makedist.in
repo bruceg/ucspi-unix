@@ -21,6 +21,8 @@ EXTRAS="ChangeLog NEWS PROTOCOL README TODO"
 # the version-numbered directory in the destination site.
 EXTRAS_VER="ANNOUNCEMENT"
 
+EXTRAS_DIST="COPYING"
+
 VERSION_BASE=
 
 # Set HOSTNAME to the name of the host to which to connect via ssh
