@@ -2,6 +2,8 @@
 
 	* Released version 0.30
 
+	* unixserver.c: Changed the default for "verbose" to off.
+
 	* unixserver.c (parse_options): Parse UID and GID options.
 	(make_socket): Do setgid and setuid if they are set.
 	(parse_options): Added backlog and banner options.

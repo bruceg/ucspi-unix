@@ -23,7 +23,7 @@ static char** command_argv;
 static unsigned forked = 0;
 
 static unsigned opt_quiet = 0;
-static unsigned opt_verbose = 1;
+static unsigned opt_verbose = 0;
 static unsigned opt_delete = 1;
 static unsigned opt_connections = 10;
 static const char* opt_socket;
