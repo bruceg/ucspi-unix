@@ -29,6 +29,9 @@ static unsigned opt_connections = 10;
 static const char* opt_socket;
 static uid_t opt_uid = -1;
 static gid_t opt_gid = -1;
+static uid_t opt_socket_uid = -1;
+static gid_t opt_socket_gid = -1;
+static mode_t opt_perms = -1;
 static mode_t opt_umask = 0;
 static int opt_backlog = 128;
 static const char* opt_banner = 0;
@@ -46,12 +49,18 @@ void usage(const char* message)
 	  "  -u UID       Change user id to UID after creating socket.\n"
 	  "  -g GID       Change group id to GID after creating socket.\n"
 	  "  -U           Same as '-u $UID -g $GID'.\n"
+	  "  -o UID       Make the socket owned by UID.\n"
+	  "  -r GID       Make the socket group owned by GID.\n"
+	  "  -O           Same as '-o $SOCKET_UID -? $SOCKET_GID'.\n"
+	  "  -p PERM      Set the permissions on the created socket (in octal).\n"
+	  "               (defaults to 0666 minus umask)\n"
 	  "  -m MASK      Set umask to MASK (in octal) before creating socket.\n"
 	  "               (defaults to 0, previous value is restored afterwards)\n"
 	  "  -c N         Do not handle more than N simultaneous connections.\n"
 	  "               (default 10)\n"
 	  "  -b N         Allow a backlog of N connections.\n"
-	  "  -B BANNER    Write BANNER to the client immediately after connecting.\n", argv0);
+	  "  -B BANNER    Write BANNER to the client immediately after connecting.\n",
+	  argv0);
   exit(1);
 }
 
@@ -81,32 +90,43 @@ void die(const char* msg)
   exit(1);
 }
 
-void use_uid(const char* str)
+static int parseu(const char* str, unsigned* out, int base)
 {
   char* ptr;
-  if(!str)
-    usage("UID not found in environment.");
-  opt_uid = strtoul(str, &ptr, 10);
-  if(*ptr != 0)
-    usage("Invalid UID number");
+  if (!str) return 0;
+  *out = strtoul(str, &ptr, base);
+  return (*ptr == 0);
 }
 
-void use_gid(const char* str)
+static void use_uid(const char* str)
 {
-  char* ptr;
-  if(!str)
-    usage("GID not found in environment.");
-  opt_gid = strtoul(str, &ptr, 10);
-  if(*ptr != 0)
-    usage("Invalid GID number");
+  if (!str) usage("UID not found in environment.");
+  if (!parseu(str, &opt_uid, 10)) usage("Invalid UID number");
+}
+
+static void use_gid(const char* str)
+{
+  if (!str) usage("GID not found in environment.");
+  if (!parseu(str, &opt_gid, 10)) usage("Invalid GID number");
+}
+
+static void use_socket_uid(const char* str)
+{
+  if (!str) usage("Socket UID not found in environment.");
+  if (!parseu(str, &opt_socket_uid, 10)) usage("Invalid socket UID number");
+}
+
+static void use_socket_gid(const char* str)
+{
+  if (!str) usage("Socket GID not found in environment.");
+  if (!parseu(str, &opt_socket_gid, 10)) usage("Invalid socket GID number");
 }
 
 void parse_options(int argc, char* argv[])
 {
   int opt;
-  char* ptr;
   argv0 = argv[0];
-  while((opt = getopt(argc, argv, "qQvc:u:g:Ub:B:m:")) != EOF) {
+  while((opt = getopt(argc, argv, "qQvc:u:g:Ub:B:m:o:r:Op:")) != EOF) {
     switch(opt) {
     case 'q': opt_quiet = 1; opt_verbose = 0; break;
     case 'Q': opt_quiet = 0; break;
@@ -114,8 +134,7 @@ void parse_options(int argc, char* argv[])
     case 'd': opt_delete = 0; break;
     case 'D': opt_delete = 1; break;
     case 'c':
-      opt_connections = strtoul(optarg, &ptr, 10);
-      if(*ptr != 0)
+      if (!parseu(optarg, &opt_connections, 10))
 	usage("Invalid connection limit number.");
       break;
     case 'u': use_uid(optarg); break;
@@ -124,15 +143,20 @@ void parse_options(int argc, char* argv[])
       use_uid(getenv("UID"));
       use_gid(getenv("GID"));
       break;
+    case 'o': use_socket_uid(optarg); break;
+    case 'r': use_socket_gid(optarg); break;
+    case 'O':
+      use_socket_uid(getenv("SOCKET_UID"));
+      use_socket_gid(getenv("SOCKET_GID"));
+      break;
+    case 'p':
+      if (!parseu(optarg, &opt_perms, 8)) usage("Invalid permissions value.");
+      break;
     case 'm':
-      opt_umask = strtoul(optarg, &ptr, 8);
-      if(*ptr != 0)
-	usage("Invalid mask value.");
+      if (!parseu(optarg, &opt_umask, 8)) usage("Invalid mask value.");
       break;
     case 'b':
-      opt_backlog = strtoul(optarg, &ptr, 10);
-      if(*ptr != 0)
-	usage("Invalid backlog count.");
+      if (!parseu(optarg, &opt_backlog, 10)) usage("Invalid backlog count.");
       break;
     case 'B': opt_banner = optarg; break;
     default:
