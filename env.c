@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
-#include <sys/socket.h>
 #include <unistd.h>
+#include "hassetenv.h"
+#include "haspeercred.h"
 
 extern const char* utoa(unsigned long);
 
 void setup_env(int fd, const char* socket)
 {
-#ifdef SO_PEERCRED
+#ifdef HASPEERCRED
   struct ucred peer;
   int optlen = sizeof(peer);
   if(getsockopt(fd, SOL_SOCKET, SO_PEERCRED, &peer, &optlen) != -1) {
