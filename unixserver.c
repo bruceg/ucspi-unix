@@ -113,6 +113,64 @@ int make_socket()
   return s;
 }
 
+const char* utoa(unsigned long i)
+{
+#define LONGLEN (sizeof(unsigned long)*4)
+  static char buf[LONGLEN];
+  char* ptr = buf + LONGLEN;
+  if(!i)
+    return "0";
+  *--ptr = 0;
+  while(i) {
+    *--ptr = (i % 10) + '0';
+    i /= 10;
+  }
+  return ptr;
+}
+
+#ifdef SO_PEERCRED
+void setup_env(const struct ucred* peer)
+#else
+void setup_env()
+#endif
+{
+  setenv("PROTO", "UNIX", 1);
+  setenv("UNIXLOCALGID", utoa(getgid()), 1);
+  setenv("UNIXLOCALPID", utoa(getpid()), 1);
+  setenv("UNIXLOCALPATH", opt_socket, 1);
+  setenv("UNIXLOCALUID", utoa(getuid()), 1);
+#ifdef SO_PEERCRED
+  setenv("UNIXREMOTEEGID", utoa(peer->gid), 1);
+  setenv("UNIXREMOTEEUID", utoa(peer->uid), 1);
+  setenv("UNIXREMOTEPID", utoa(peer->pid), 1);
+#endif
+}
+
+void start_child(int fd)
+{
+#ifdef SO_PEERCRED
+  struct ucred peer;
+  int optlen;
+  if(getsockopt(fd, SOL_SOCKET, SO_PEERCRED, &peer, &optlen) == -1) {
+    perror("getsockopt");
+    exit(-1);
+  }
+  setup_env(&peer);
+#else
+  setup_env();
+#endif
+  close(0);
+  close(1);
+  if(dup2(fd, 0) == -1 || dup2(fd, 1) == -1) {
+    perror("dup2");
+    exit(-1);
+  }
+  close(fd);
+  execvp(command_argv[0], command_argv);
+  perror("execvp");
+  exit(-1);
+}
+
 void handle_connection(int s)
 {
   int fd;
@@ -133,20 +191,11 @@ void handle_connection(int s)
     log_status();
     break;
   case 0:
-    close(0);
-    close(1);
-    if(dup2(fd, 0) == -1 || dup2(fd, 1) == -1) {
-      perror("dup2");
-      exit(-1);
-    }
-    close(fd);
-    execvp(command_argv[0], command_argv);
-    perror("execvp");
-    exit(-1);
+    start_child(fd);
     break;
   default:
-    log_child_start(pid);
     close(fd);
+    log_child_start(pid);
   }
 }
 

@@ -1,4 +1,11 @@
 -------------------------------------------------------------------------------
+Changes in version 0.20
+
+- The environment is now set up properly according to the UCSPI
+  specification.
+- Added code to determine the socket peer credentials (UID, GID, and
+  PID) on systems supporting SO_PEERCRED (specifically Linux).
+-------------------------------------------------------------------------------
 Changes in version 0.10
 
 - First release, includes base functionality for unixserver and
