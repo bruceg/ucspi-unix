@@ -1,5 +1,6 @@
 -------------------------------------------------------------------------------
-Changes in version 0.31 (brown paper bag release)
+Changes in version 0.31
+(brown paper bag release)
 
 - Fixed bug in reading the UID/GID values from the environment.
 
