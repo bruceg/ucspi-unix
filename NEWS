@@ -1,4 +1,9 @@
 -------------------------------------------------------------------------------
+Changes in version 0.34
+
+- If getsockopt fails, don't fail the connection.  This fixes problems
+  with Linux 2.0 systems.
+-------------------------------------------------------------------------------
 Changes in version 0.33
 
 - Fixed a bug in unixserver that could cause it to enter an infinite

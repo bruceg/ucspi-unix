@@ -1,8 +1,8 @@
 ucspi-unix
 UNIX-domain socket client-server command-line tools
 Bruce Guenter <bruceg@em.ca>
-Version 0.33
-2000-07-24
+Version 0.34
+2000-08-25
 
 This package contains UNIX domain socket client and server programs that
 conform to UCSPI, the UNIX Client-Server Program Interface.

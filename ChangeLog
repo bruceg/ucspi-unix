@@ -1,3 +1,12 @@
+2000-08-25  Bruce Guenter  <bruce@bruce-guenter.dyndns.org>
+
+	* env.c (setup_env): Modified to not fail if getsockopt does not
+	succeed.
+
+2000-07-24  Bruce Guenter  <bruce@bruce-guenter.dyndns.org>
+
+	* Released version 0.33
+
 2000-07-05  Bruce Guenter  <bruce@bruce-guenter.dyndns.org>
 
 	* Released version 0.32
