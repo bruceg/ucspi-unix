@@ -33,7 +33,7 @@ unixclient.o: unixclient.c
 env.o: env.c
 utoa.o: utoa.c
 
-install:
+install: $(PROGS) $(SCRIPTS)
 	$(install) -d $(bindir)
 	$(install) -m 755 $(PROGS) $(SCRIPTS) $(bindir)
 
