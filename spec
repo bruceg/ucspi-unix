@@ -5,7 +5,7 @@ Release: 1
 Copyright: GPL
 Group: Utilities/System
 Source: http://em.ca/~bruceg/ucspi-unix/%{version}/ucspi-unix-%{version}.tar.gz
-BuildRoot: %{_tmppath/ucspi-unix-root
+BuildRoot: %{_tmppath}/ucspi-unix-root
 URL: http://em.ca/~bruceg/ucspi-unix/
 Packager: Bruce Guenter <bruceg@em.ca>
 BuildRequires: bglibs
