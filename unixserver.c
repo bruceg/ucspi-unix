@@ -7,6 +7,7 @@
 #include <sys/un.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <sysdeps.h>
 
 extern void setup_env(int, const char*);
 
@@ -220,10 +221,16 @@ void handle_children()
 {
   pid_t pid;
   int status;
+#if HASWAITPID
   while((pid = waitpid(0, &status, WNOHANG | WUNTRACED)) > 0) {
     --forked;
     log_child_exit(pid, status);
   }
+#else
+  pid = wait(&status);
+  --forked;
+  log_child_exit(pid, status);
+#endif
   signal(SIGCHLD, handle_children);
 }
 
