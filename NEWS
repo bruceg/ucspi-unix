@@ -2,6 +2,8 @@
 Changes in version 0.35
 
 - Fixed a header ordering problem on FreeBSD.
+- Adjusted to SPAC build environment, including additional portability
+  fixes.
 -------------------------------------------------------------------------------
 Changes in version 0.34
 

@@ -1,1 +1,3 @@
 - Documentation -- man pages, etc.
+
+- Needs LIBS = -lsocket -lxnet -ldl -lnsl ?

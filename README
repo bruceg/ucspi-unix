@@ -1,7 +1,7 @@
 ucspi-unix
 UNIX-domain socket client-server command-line tools
 Bruce Guenter <bruceg@em.ca>
-Version 0.35
+Version 0.36
 2001-05-06
 
 This package contains UNIX domain socket client and server programs that

@@ -6,6 +6,7 @@ PKGURL=http://em.ca/~bruceg/ucspi-unix/
 # If LISTSUB is set, makedist will add a note regarding mailing list
 # subscription.
 LISTSUB="bgware-subscribe@lists.em.ca"
+LISTURL="http://lists.em.ca/?list=bgware"
 
 # Set MAKERPM to non-empty if the tarball is to be built into a RPM.
 MAKERPM=true
