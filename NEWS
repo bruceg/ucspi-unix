@@ -2,9 +2,14 @@
 Changes in version 0.20
 
 - The environment is now set up properly according to the UCSPI
-  specification.
+  specification, and documented in the PROTOCOL file.
+
 - Added code to determine the socket peer credentials (UID, GID, and
   PID) on systems supporting SO_PEERCRED (specifically Linux).
+
+Question: Should the protocol be called "UNIX" as it currently is, or
+"local" which more accurately reflects that they are local-domain
+sockets?
 -------------------------------------------------------------------------------
 Changes in version 0.10
 

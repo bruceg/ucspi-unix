@@ -1,0 +1,25 @@
+UNIX UCSPI protocol definition
+Copyright (C) 2000
+Bruce Guenter <bruceg@em.ca>
+
+This document defines the UNIX protocol for UCSPI tools. A UNIX client
+communicates with a UNIX server on the same machine through a
+local-domain stream socket.  See http://cr.yp.to/proto/ucspi.txt for
+further details on the UCSPI standard.
+
+Both the client and the server set up the following environment
+variables:
+
+  PROTO the string "UNIX"
+  UNIXLOCALPATH is the path associated with the local-domain socket
+  UNIXLOCALUID is the UID of the local process
+  UNIXLOCALGID is the GID of the local process
+  UNIXLOCALPID is the PID of the local process
+  UNIXREMOTEEUID is the effective UID of the remote process
+  UNIXREMOTEEGID is the effective GID of the remote process
+  UNIXREMOTEPID is the PID of the remote process
+
+Note that the remote variables are only supported on operating systems
+that support some way of identifying the process connecting to a socket.
+For now this is limited to Linux kernel 2.1 or later with SO_PEERCRED
+support.

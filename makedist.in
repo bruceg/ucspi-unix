@@ -15,7 +15,7 @@ MAKERPM=true
 
 # Set EXTRAS to a list of any other extra files that should go into the
 # base directory in the destination site.
-EXTRAS="ChangeLog NEWS README TODO"
+EXTRAS="ChangeLog NEWS PROTOCOL README TODO"
 
 # Set EXTRAS_VER to a list of any other extra files that should go into
 # the version-numbered directory in the destination site.
@@ -37,7 +37,7 @@ PKGDIR=www/ucspi-unix
 RPMUPLOAD="incoming.redhat.com/libc6"
 
 # Set LIST to the mailing list(s) to send the announcement to
-LIST="rpms@lists.em.ca,log@list.cr.yp.to"
+LIST="rpms@lists.em.ca"
 
 # Run any extra commands to prepare the source tree (such as making
 # documentation) here.
