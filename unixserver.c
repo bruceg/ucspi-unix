@@ -31,7 +31,7 @@ static uid_t opt_uid = -1;
 static gid_t opt_gid = -1;
 static uid_t opt_socket_uid = -1;
 static gid_t opt_socket_gid = -1;
-static mode_t opt_perms = -1;
+static mode_t opt_perms = 0;
 static mode_t opt_umask = 0;
 static int opt_backlog = 128;
 static const char* opt_banner = 0;
@@ -176,7 +176,7 @@ int make_socket()
 {
   struct sockaddr_un* saddr;
   int s;
-  mode_t old_umask = umask(opt_umask);
+  mode_t old_umask;
   saddr = (struct sockaddr_un*)malloc(sizeof(struct sockaddr_un) +
 				      strlen(opt_socket) + 1);
   saddr->sun_family = AF_UNIX;
@@ -185,15 +185,20 @@ int make_socket()
   s = socket(AF_UNIX, SOCK_STREAM, 0);
   if(s < 0)
     die("socket");
+  old_umask = umask(opt_umask);
   if(bind(s, (struct sockaddr*)saddr, SUN_LEN(saddr)) != 0)
     die("bind");
+  umask(old_umask);
+  if(chown(opt_socket, opt_socket_uid, opt_socket_gid) == -1)
+    die("chown");
+  if(opt_perms && chmod(opt_socket, opt_perms) == -1)
+    die("chmod");
   if(listen(s, opt_backlog) != 0)
     die("listen");
   if(opt_gid != (gid_t)-1 && setgid(opt_gid) == -1)
     die("setgid");
   if(opt_uid != (uid_t)-1 && setuid(opt_uid) == -1)
     die("setuid");
-  umask(old_umask);
   return s;
 }
 
