@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "hassetenv.h"
-#include "haspeercred.h"
+#include <sysdeps.h>
 
 extern const char* utoa(unsigned long);
 
