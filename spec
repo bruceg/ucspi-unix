@@ -5,7 +5,7 @@ Release: 1
 Copyright: GPL
 Group: Utilities/System
 Source: http://em.ca/~bruceg/ucspi-unix/%{version}/ucspi-unix-%{version}.tar.gz
-BuildRoot: /tmp/ucspi-unix-root
+BuildRoot: %{_tmpdir}/ucspi-unix-root
 URL: http://em.ca/~bruceg/ucspi-unix/
 Packager: Bruce Guenter <bruceg@em.ca>
 
@@ -24,18 +24,19 @@ for several different networks.
 %setup
 
 %build
+echo %{_bindir} >conf-bin
 make programs
 
 %install
-rm -fr $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-echo $RPM_BUILD_ROOT%{_bindir} >conf-bin
+rm -fr %{buildroot}
+mkdir -p %{buildroot}%{_bindir}
+echo %{buildroot}%{_bindir} >conf-bin
 make installer instcheck
 ./installer
 ./instcheck
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
