@@ -39,5 +39,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%doc COPYING ChangeLog NEWS PROTOCOL README TODO
+%doc COPYING NEWS PROTOCOL README TODO VERSION
 %{_bindir}/*
