@@ -1,4 +1,10 @@
 -------------------------------------------------------------------------------
+Changes in version 0.32
+
+- unixserver now sets the umask before creating the socket, and restores
+  it afterwards.  The default umask is 0, so that all users can open the
+  socket.
+-------------------------------------------------------------------------------
 Changes in version 0.31
 (brown paper bag release)
 

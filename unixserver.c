@@ -29,6 +29,7 @@ static unsigned opt_connections = 10;
 static const char* opt_socket;
 static uid_t opt_uid = -1;
 static gid_t opt_gid = -1;
+static mode_t opt_umask = 0;
 static int opt_backlog = 128;
 static const char* opt_banner = 0;
 
@@ -45,6 +46,8 @@ void usage(const char* message)
 	  "  -u UID       Change user id to UID after creating socket.\n"
 	  "  -g GID       Change group id to GID after creating socket.\n"
 	  "  -U           Same as '-u $UID -g $GID'.\n"
+	  "  -m MASK      Set umask to MASK (in octal) before creating socket.\n"
+	  "               (defaults to 0, previous value is restored afterwards)\n"
 	  "  -c N         Do not handle more than N simultaneous connections.\n"
 	  "               (default 10)\n"
 	  "  -b N         Allow a backlog of N connections.\n"
@@ -103,7 +106,7 @@ void parse_options(int argc, char* argv[])
   int opt;
   char* ptr;
   argv0 = argv[0];
-  while((opt = getopt(argc, argv, "qQvc:u:g:Ub:B:")) != EOF) {
+  while((opt = getopt(argc, argv, "qQvc:u:g:Ub:B:m:")) != EOF) {
     switch(opt) {
     case 'q': opt_quiet = 1; opt_verbose = 0; break;
     case 'Q': opt_quiet = 0; break;
@@ -120,6 +123,11 @@ void parse_options(int argc, char* argv[])
     case 'U':
       use_uid(getenv("UID"));
       use_gid(getenv("GID"));
+      break;
+    case 'm':
+      opt_umask = strtoul(optarg, &ptr, 8);
+      if(*ptr != 0)
+	usage("Invalid mask value.");
       break;
     case 'b':
       opt_backlog = strtoul(optarg, &ptr, 10);
@@ -143,6 +151,7 @@ int make_socket()
 {
   struct sockaddr_un* saddr;
   int s;
+  mode_t old_umask = umask(opt_umask);
   saddr = (struct sockaddr_un*)malloc(sizeof(struct sockaddr_un) +
 				      strlen(opt_socket) + 1);
   saddr->sun_family = AF_UNIX;
@@ -159,6 +168,7 @@ int make_socket()
     die("setgid");
   if(opt_uid != (uid_t)-1 && setuid(opt_uid) == -1)
     die("setuid");
+  umask(old_umask);
   return s;
 }
 
@@ -249,9 +259,8 @@ int main(int argc, char* argv[])
   s = make_socket();
   log_status();
   for(;;) {
-    if(forked >= opt_connections)
+    while(forked >= opt_connections)
       handle_child();
-    else
-      handle_connection(s);
+    handle_connection(s);
   }
 }
