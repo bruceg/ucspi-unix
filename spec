@@ -24,12 +24,15 @@ for several different networks.
 %setup
 
 %build
-make CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_OPT_FLAGS -s"
+make programs
 
 %install
 rm -fr $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT
-make install_prefix=$RPM_BUILD_ROOT install
+mkdir -p $RPM_BUILD_ROOT%{_bindir}
+echo $RPM_BUILD_ROOT%{_bindir} >conf-bin
+make installer instcheck
+./installer
+./instcheck
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -37,4 +40,4 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %doc COPYING ChangeLog NEWS PROTOCOL README TODO
-/usr/bin/*
+%{_bindir}/*
