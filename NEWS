@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
+Changes in version 0.35
+
+- Fixed a header ordering problem on FreeBSD.
+-------------------------------------------------------------------------------
 Changes in version 0.34
 
 - If getsockopt fails, don't fail the connection.  This fixes problems
