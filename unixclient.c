@@ -9,6 +9,8 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+extern void setup_env(int, const char*);
+
 #ifndef SUN_LEN
 /* Evaluate to actual length of the `sockaddr_un' structure.  */
 #define SUN_LEN(ptr) ((size_t) (((struct sockaddr_un *) 0)->sun_path)	      \
@@ -68,6 +70,7 @@ void parse_options(int argc, char* argv[])
 
 void exec_program(int fd)
 {
+  setup_env(fd, opt_socket);
   if(dup2(fd, 6) == -1 || dup2(fd, 7) == -1)
     die("dup2");
   close(fd);

@@ -17,17 +17,17 @@ install = /usr/bin/install
 distdir = $(PACKAGE)-$(VERSION)
 
 progs = unixserver unixclient
-sources = unixserver.c unixclient.c
+sources = unixserver.c unixclient.c env.c utoa.c
 scripts = unixcat
 docs = ANNOUNCEMENT COPYING ChangeLog NEWS README TODO
 
 all: $(progs)
 
-unixclient: unixclient.o
-	$(LD) $(LDFLAGS) -o $@ unixclient.o $(LIBS)
+unixclient: unixclient.o env.o utoa.o
+	$(LD) $(LDFLAGS) -o $@ unixclient.o env.o utoa.o $(LIBS)
 
-unixserver: unixserver.o
-	$(LD) $(LDFLAGS) -o $@ unixserver.o $(LIBS)
+unixserver: unixserver.o env.o utoa.o
+	$(LD) $(LDFLAGS) -o $@ unixserver.o env.o utoa.o $(LIBS)
 
 install:
 	$(install) -d $(bindir)

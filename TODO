@@ -1,2 +1,1 @@
-- Set up environment variables according to the UCSPI spec, where
-  protocol=UNIX.  unixserver is done, unixclient is not.
+- Documentation -- man pages, etc.
