@@ -2,10 +2,20 @@ ucspi-unix
 UNIX-domain socket client-server command-line tools
 Bruce Guenter <bruceg@em.ca>
 Version 0.36
-2002-06-07
+2002-06-10
 
 This package contains UNIX domain socket client and server programs that
 conform to UCSPI, the UNIX Client-Server Program Interface.
+
+A mailing list has been set up to discuss this and other packages.
+To subscribe, send an email to:
+	bgware-subscribe@lists.em.ca
+A mailing list archive is available at:
+	http://lists.em.ca/?list=bgware
+
+Development versions of ucspi-unix are available via anonymous CVS.
+Set your CVSROOT to ":pserver:cvs@bruce-guenter.dyndns.org:/CVS",
+login with an empty password, and check out the "ucspi-unix" module.
 
 Requirements:
 
@@ -17,7 +27,7 @@ How to install:
 
 - As root, run "make ; ./installer"
 
-This program is Copyright(C) 2000 Bruce Guenter, and may be copied
+This program is Copyright(C) 2002 Bruce Guenter, and may be copied
 according to the GNU GENERAL PUBLIC LICENSE (GPL) Version 2 or a later
 version.  A copy of this license is included with this package.  This
 package comes with no warranty of any kind.
