@@ -98,15 +98,17 @@ void parse_options(int argc, char* argv[])
 
 int make_socket()
 {
-  struct sockaddr_un saddr;
+  struct sockaddr_un* saddr;
   int s;
-  saddr.sun_family = AF_UNIX;
-  strcpy(saddr.sun_path, opt_socket);
+  saddr = (struct sockaddr_un*)malloc(sizeof(struct sockaddr_un) +
+				      strlen(opt_socket) + 1);
+  saddr->sun_family = AF_UNIX;
+  strcpy(saddr->sun_path, opt_socket);
   unlink(opt_socket);
   s = socket(AF_UNIX, SOCK_STREAM, 0);
   if(s < 0)
     die("socket");
-  if(bind(s, (struct sockaddr*)&saddr, SUN_LEN(&saddr)) != 0)
+  if(bind(s, (struct sockaddr*)saddr, SUN_LEN(saddr)) != 0)
     die("bind");
   if(listen(s, 128) != 0)
     die("listen");
