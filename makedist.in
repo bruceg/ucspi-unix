@@ -9,9 +9,11 @@ LISTSUB="bgware-subscribe@lists.em.ca"
 
 # Set MAKERPM to non-empty if the tarball is to be built into a RPM.
 MAKERPM=true
+NOARCH=
 
 # Set DOCS to the list of files that should go into the "docs" directory
 # in the destination site.
+DOCS=
 
 # Set EXTRAS to a list of any other extra files that should go into the
 # base directory in the destination site.
@@ -25,14 +27,8 @@ EXTRAS_DIST="COPYING"
 
 VERSION_BASE=
 
-# Set HOSTNAME to the name of the host to which to connect via ssh
-HOSTNAME=em.ca
-
-# Set USERNAME to the name to log in as
-USERNAME=bruceg
-
-# Set PKGDIR to the directory to change into before delivering the files
-PKGDIR=www/ucspi-unix
+WEBSITE=em.ca
+WEBDIR=www/ucspi-unix
 
 # Set RPMUPLOAD to a list of additional "hostname/path" destinations to
 # which to upload the source and binary RPMs.
