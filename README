@@ -1,8 +1,8 @@
 ucspi-unix
 UNIX-domain socket client-server command-line tools
 Bruce Guenter <bruceg@em.ca>
-Version 0.30
-2000-06-20
+Version 0.33
+2000-07-24
 
 This package contains UNIX domain socket client and server programs that
 conform to UCSPI, the UNIX Client-Server Program Interface.
@@ -11,7 +11,7 @@ Requirements:
 
 - A UNIX system supporting UNIX domain sockets.
 - Systems supporting the SO_PEERCRED socket option (only Linux
-  currently) will be have extra functionality.
+  currently) will have extra functionality.
 
 How to install:
 
