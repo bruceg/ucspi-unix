@@ -19,7 +19,7 @@ distdir = $(PACKAGE)-$(VERSION)
 progs = unixserver unixclient
 sources = unixserver.c unixclient.c
 scripts = unixcat
-docs = ANNOUNCEMENT COPYING NEWS TODO
+docs = ANNOUNCEMENT COPYING NEWS README TODO
 
 all: $(progs)
 
