@@ -1,0 +1,6 @@
+- Set up environment variables according to the UCSPI spec, where
+  protocol=UNIX.
+
+- Linux (and possibly other systems) supports determining the uid of the
+  user connecting to the socket.  Figure out how to do this, and set the
+  environment variables accordingly.
