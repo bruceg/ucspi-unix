@@ -1,5 +1,15 @@
 2000-06-20  Bruce Guenter  <bruce@bruce-guenter.dyndns.org>
 
+	* Released version 0.31
+
+	* env.c (setup_env): Set "optlen" to prevent getsockopt from
+	failing.
+
+	* unixserver.c (use_gid,use_uid): Fixed a stupid typo in using the
+	environment UID/GID strings.
+	(main): Eliminated the use of exitfn, which caused the socket to
+	be deleted after its first use.
+
 	* Released version 0.30
 
 	* unixserver.c: Changed the default for "verbose" to off.

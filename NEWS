@@ -1,4 +1,13 @@
 -------------------------------------------------------------------------------
+Changes in version 0.31 (brown paper bag release)
+
+- Fixed bug in reading the UID/GID values from the environment.
+
+- Fixed exit bug that caused the socket to be deleted after the first
+  use.
+
+- Fixed uninitialized variable bug in getting socket options.
+-------------------------------------------------------------------------------
 Changes in version 0.30
 
 - Now supports UID/GID switching, setting the backlog, and printing out

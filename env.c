@@ -9,7 +9,7 @@ void setup_env(int fd, const char* socket)
 {
 #ifdef SO_PEERCRED
   struct ucred peer;
-  int optlen;
+  int optlen = sizeof(peer);
   if(getsockopt(fd, SOL_SOCKET, SO_PEERCRED, &peer, &optlen) == -1) {
     perror("getsockopt");
     exit(-1);

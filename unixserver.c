@@ -83,7 +83,7 @@ void use_uid(const char* str)
   char* ptr;
   if(!str)
     usage("UID not found in environment.");
-  opt_uid = strtoul(optarg, &ptr, 10);
+  opt_uid = strtoul(str, &ptr, 10);
   if(*ptr != 0)
     usage("Invalid UID number");
 }
@@ -93,7 +93,7 @@ void use_gid(const char* str)
   char* ptr;
   if(!str)
     usage("GID not found in environment.");
-  opt_gid = strtoul(optarg, &ptr, 10);
+  opt_gid = strtoul(str, &ptr, 10);
   if(*ptr != 0)
     usage("Invalid GID number");
 }
@@ -228,14 +228,10 @@ void handle_child(void)
   log_child_exit(pid, status);
 }
 
-void exitfn(void)
+void handle_intr()
 {
   if(opt_delete)
     unlink(opt_socket);
-}
-
-void handle_intr()
-{
   exit(0);
 }
 
@@ -251,7 +247,6 @@ int main(int argc, char* argv[])
   signal(SIGPIPE, SIG_IGN);
   signal(SIGALRM, SIG_IGN);
   s = make_socket();
-  atexit(exitfn);
   log_status();
   for(;;) {
     if(forked >= opt_connections)

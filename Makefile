@@ -1,5 +1,5 @@
 PACKAGE = ucspi-unix
-VERSION = 0.30
+VERSION = 0.31
 
 CC = gcc
 CFLAGS = -O -g -W -Wall
