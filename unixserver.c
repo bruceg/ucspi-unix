@@ -1,4 +1,3 @@
-#include <getopt.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -221,7 +220,7 @@ void handle_children()
 {
   pid_t pid;
   int status;
-  while((pid = waitpid(0, &status, WNOHANG | WUNTRACED)) != -1) {
+  while((pid = waitpid(0, &status, WNOHANG | WUNTRACED)) > 0) {
     --forked;
     log_child_exit(pid, status);
   }

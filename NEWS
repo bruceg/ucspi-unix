@@ -1,4 +1,11 @@
 -------------------------------------------------------------------------------
+Changes in version 0.33
+
+- Fixed a bug in unixserver that could cause it to enter an infinite
+  loop.
+
+- Should now compile on FreeBSD.
+-------------------------------------------------------------------------------
 Changes in version 0.32
 
 - unixserver now sets the umask before creating the socket, and restores
