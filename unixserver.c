@@ -86,7 +86,8 @@ void log_child_start(pid_t pid)
 void die(const char* msg)
 {
   perror(msg);
-  unlink(opt_socket);
+  if(opt_delete)
+    unlink(opt_socket);
   exit(1);
 }
 
