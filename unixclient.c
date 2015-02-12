@@ -72,7 +72,7 @@ void exec_program(int fd)
   setup_env(fd, opt_socket);
   if(dup2(fd, 6) == -1 || dup2(fd, 7) == -1)
     die("dup2");
-  close(fd);
+  if(fd != 6 && fd != 7) close(fd);
   execvp(command_argv[0], command_argv);
   die("execvp");
 }

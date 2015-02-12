@@ -1,3 +1,6 @@
+- Fixed unixclient closing wrong file descriptor when additional ones
+  are open.
+
 -------------------------------------------------------------------------------
 Changes in version 0.36
 
