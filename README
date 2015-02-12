@@ -1,6 +1,6 @@
 ucspi-unix
 UNIX-domain socket client-server command-line tools
-Bruce Guenter <bruceg@em.ca>
+Bruce Guenter <bruceg@untroubled.org>
 Version 0.36
 2002-06-10
 
@@ -9,13 +9,12 @@ conform to UCSPI, the UNIX Client-Server Program Interface.
 
 A mailing list has been set up to discuss this and other packages.
 To subscribe, send an email to:
-	bgware-subscribe@lists.em.ca
+	bgware-subscribe@lists.untroubled.org
 A mailing list archive is available at:
-	http://lists.em.ca/?list=bgware
+	http://lists.untroubled.org/?list=bgware
 
-Development versions of ucspi-unix are available via anonymous CVS.
-Set your CVSROOT to ":pserver:cvs@bruce-guenter.dyndns.org:/CVS",
-login with an empty password, and check out the "ucspi-unix" module.
+Development versions of ucspi-unix are available at GitHub:
+        https://github.com/bruceg/ucspi-unix
 
 Requirements:
 
