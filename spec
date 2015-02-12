@@ -2,12 +2,12 @@ Name: ucspi-unix
 Summary: UNIX-domain socket client-server command-line tools
 Version: @VERSION@
 Release: 1
-Copyright: GPL
+License: GPL
 Group: Utilities/System
-Source: http://em.ca/~bruceg/ucspi-unix/%{version}/ucspi-unix-%{version}.tar.gz
+Source: http://untroubled.org/ucspi-unix/archive/ucspi-unix-%{version}.tar.gz
 BuildRoot: %{_tmppath}/ucspi-unix-root
-URL: http://em.ca/~bruceg/ucspi-unix/
-Packager: Bruce Guenter <bruceg@em.ca>
+URL: http://untroubled.org/ucspi-unix/
+Packager: Bruce Guenter <bruceg@untroubled.org>
 BuildRequires: bglibs
 
 %description
