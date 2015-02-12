@@ -1,0 +1,3 @@
+: compile load haspeercred.h0 haspeercred.h1 trypeercred.c
+( ( ./compile trypeercred.c && ./load trypeercred; ) && cat haspeercred.h1 || cat haspeercred.h0 ) > $@
+@rm -f trypeercred.o trypeercred

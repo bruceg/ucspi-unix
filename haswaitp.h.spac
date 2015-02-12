@@ -1,0 +1,3 @@
+: compile load haswaitp.h0 haswaitp.h1 trywaitp.c
+( ( ./compile trywaitp.c && ./load trywaitp; ) && cat haswaitp.h1 || cat haswaitp.h0 ) > $@
+@rm -f trywaitp.o trywaitp

@@ -7,7 +7,7 @@
 #include <sys/un.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <sysdeps.h>
+#include "haswaitp.h"
 
 extern void setup_env(int, const char*);
 
