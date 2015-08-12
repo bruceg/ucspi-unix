@@ -205,8 +205,13 @@ int make_socket()
 
 void start_child(int fd)
 {
-  if(opt_banner)
-    write(fd, opt_banner, strlen(opt_banner));
+  if(opt_banner) {
+    ssize_t len = strlen(opt_banner);
+    if(write(fd, opt_banner, len) != len) {
+      perror("write");
+      exit(-1);
+    }
+  }
   setup_env(fd, opt_socket);
   close(0);
   close(1);
