@@ -1,8 +1,13 @@
+-------------------------------------------------------------------------------
+Changes in version 1.0
+
 - Dropped vestigal dependencies on bglibs.
 
 - Fixed unixclient closing wrong file descriptor when additional ones
   are open.
 
+Development of this version has been sponsored by FutureQuest, Inc.
+ossi@FutureQuest.net  http://www.FutureQuest.net/
 -------------------------------------------------------------------------------
 Changes in version 0.36
 
