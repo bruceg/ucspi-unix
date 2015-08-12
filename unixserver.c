@@ -33,7 +33,7 @@ static uid_t opt_socket_uid = -1;
 static gid_t opt_socket_gid = -1;
 static mode_t opt_perms = 0;
 static mode_t opt_umask = 0;
-static int opt_backlog = 128;
+static unsigned int opt_backlog = 128;
 static const char* opt_banner = 0;
 
 void usage(const char* message)

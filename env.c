@@ -9,7 +9,7 @@ void setup_env(int fd, const char* socket)
 {
 #ifdef HASPEERCRED
   struct ucred peer;
-  int optlen = sizeof(peer);
+  socklen_t optlen = sizeof(peer);
   if(getsockopt(fd, SOL_SOCKET, SO_PEERCRED, &peer, &optlen) != -1) {
     setenv("UNIXREMOTEEGID", utoa(peer.gid), 1);
     setenv("UNIXREMOTEEUID", utoa(peer.uid), 1);
