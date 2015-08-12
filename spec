@@ -8,7 +8,6 @@ Source: http://untroubled.org/ucspi-unix/archive/ucspi-unix-%{version}.tar.gz
 BuildRoot: %{_tmppath}/ucspi-unix-root
 URL: http://untroubled.org/ucspi-unix/
 Packager: Bruce Guenter <bruceg@untroubled.org>
-BuildRequires: bglibs
 
 %description
 unixclient and unixserver are command-line tools for building UNIX
@@ -25,19 +24,11 @@ for several different networks.
 %setup
 
 %build
-echo %{_bindir} >conf-bin
-echo %{_mandir} >conf-man
-make programs
+make
 
 %install
 rm -fr %{buildroot}
-mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{_mandir}
-echo %{buildroot}%{_bindir} >conf-bin
-echo %{buildroot}%{_mandir} >conf-man
-make installer instcheck
-./installer
-./instcheck
+make install prefix=%{buildroot} bindir=%{_bindir} mandir=%{_mandir}
 
 %clean
 rm -rf %{buildroot}

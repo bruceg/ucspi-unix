@@ -24,7 +24,10 @@ Requirements:
 
 How to install:
 
-- As root, run "make ; ./installer"
+- Run "make"
+- As root, run "make install"
+- To install in alternate locations, use:
+  make install prefix=/usr bindir=/bin mandir=/share/man
 
 This program is Copyright(C) 2002 Bruce Guenter, and may be copied
 according to the GNU GENERAL PUBLIC LICENSE (GPL) Version 2 or a later

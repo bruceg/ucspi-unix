@@ -1,0 +1,5 @@
+:
+install -d $(or $(prefix),/usr/local)/$(or $(bindir),bin)
+install -m 755 unixcat unixclient unixserver $(or $(prefix),/usr)/$(or $(bindir),bin)
+install -d $(or $(prefix),/usr/local)/$(or $(mandir),man)/man1
+install -m 644 unixclient.1 unixserver.1 $(or $(prefix),/usr)/$(or $(mandir),man)/man1

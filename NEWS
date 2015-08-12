@@ -1,3 +1,5 @@
+- Dropped vestigal dependencies on bglibs.
+
 - Fixed unixclient closing wrong file descriptor when additional ones
   are open.
 
