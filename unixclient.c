@@ -47,12 +47,7 @@ void usage(const char* message)
 {
   if(message)
     fprintf(stderr, "%s: %s\n", argv0, message);
-  fprintf(stderr, "usage: %s [options] socket program\n"
-	  "  -q           Quiet. Do not print any messages.\n"
-	  "  -Q (default) Print error messages.\n"
-	  "  -v           Verbose.  Print error and status messages.\n"
-	  "  -c N         Do not handle more than N simultaneous connections.\n"
-	  "               (default 10)\n", argv0);
+  fprintf(stderr, "usage: %s socket program\n", argv0);
   exit(1);
 }
 
