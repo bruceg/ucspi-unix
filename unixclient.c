@@ -43,10 +43,8 @@ int do_connect(void)
   return s;
 }
 
-void usage(const char* message)
+void usage(void)
 {
-  if(message)
-    fprintf(stderr, "%s: %s\n", argv0, message);
   fprintf(stderr, "usage: %s socket program\n", argv0);
   exit(1);
 }
@@ -57,7 +55,7 @@ void parse_options(int argc, char* argv[])
   ++argv;
   --argc;
   if(argc < 2)
-    usage(0);
+    usage();
   opt_socket = argv[0];
   command_argv = argv + 1;
 }
