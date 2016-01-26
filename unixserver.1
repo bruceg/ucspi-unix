@@ -1,77 +1,118 @@
 .TH UNIXSERVER 1
 .SH NAME
 unixserver - UNIX domain socket server
-
 .SH SYNOPSIS
-unixserver [options] socket program
-
+.B unixserver
+[
+.I options
+]
+.I socket program
 .SH DESCRIPTION
-Unixserver is  UNIX domain socket server that conform to UCSPI, 
-the UNIX Client-Server Program Interface.
-
+.B unixserver
+waits for connections from clients on its UNIX domain socket.
+The server's address is given by
+.I socket
+which is a filesystem path.
+For each connection, it runs
+.I program
+with file descriptor 0 reading from the network and descriptor 1 writing to the network.
+It also sets up several environment variables.
 .SH OPTIONS
-.HP
 .TP
-\fB\-q \fR 
+.B \-q
 Quiet. Do not print any messages.
 .TP
-\fB\-Q \fR 
+.B \-Q
 (default) Print error messages.
 .TP
-\fB\-v \fR
+.B \-v
 Verbose.  Print error and status messages.
 .TP
-\fB\-d \fR 
+.B \-d
 Do not delete the socket file on exit.
 .TP
-\fB\-D \fR
+.B \-D
 (default) Delete the socket file on exit.
 .TP
-\fB\-u UID \fR
+.B \-u \fIUID
 Change user id to UID after creating socket.
 .TP
-\fB\-g GID \fR
+.B \-g \fIGID
 Change group id to GID after creating socket.
 .TP
-\fB\-U \fR 
+.B \-U 
 Same as '-u $UID -g $GID'.
 .TP
-\fB\-o UID\fR
+.B \-o \fIUID
 Make the socket owned by UID.
 .TP
-\fB\-r GID\fR
+.B \-r \fIGID
 Make the socket group owned by GID.
 .TP
-\fB\-O\fR
+.B \-O
 Same as '-o $SOCKET_UID -r $SOCKET_GID'.
 .TP
-\fB\-p PERM\fR
+.B \-p \fIPERM
 Set the permissions on the created socket (in octal).
 Note: this option, if set, overrides the mask below.
 (defaults to 0666 minus umask)
 .TP
-\fB\-m MASK \fR 
+.B \-m \fIMASK 
 Set umask to MASK (in octal) before creating socket.
 (defaults to 0, previous value is restored afterwards)
 .TP
-\fB\-c N \fR 
+.B \-c \fIN
 Do not handle more than N simultaneous connections.
 (default 10)
 .TP
-\fB\-b N \fR
+.B \-b \fIN
 Allow a backlog of N connections.
 .TP
-\fB\-B BANNER \fR
-Write BANNER to the client immediately after connecting.
-
+.B \-B \fIBANNER
+Write
+.I BANNER
+to the client immediately after connecting.
+.SH ENVIRONMENT
+.B unixserver
+sets up the following environment variables:
+.TP
+.B PROTO=UNIX
+As per the UCSPI standard,
+.B $PROTO
+specifies the server protocol, and all other environment variables are
+prefixed by
+.BR UNIX .
+.TP
+.B UNIXLOCALGID
+.TP
+.B UNIXLOCALUID
+The group and user ID under which
+.I process
+is executing.
+.TP
+.B UNIXLOCALPATH
+The path to the server socket.
+.TP
+.B UNIXLOCALPID
+The process ID of the executed process.
+.TP
+.B UNIXREMOTEEGID
+.TP
+.B UNIXREMOTEEUID
+The effective group and user ID of the process connecting to the server,
+if available.
+.TP
+.B UNIXREMOTEGID
+.TP
+.B UNIXREMOTEUID
+The real group and user ID of the process connecting to the server,
+if available.
+.TP
+.B UNIXREMOTEPID
+The process ID of the process connecting to the server, if available.
 .SH SEE ALSO
-unixclient(1), unixcat(1)
+unixclient(1),
+unixcat(1),
 http://cr.yp.to/proto/ucspi.txt
-
 .SH AUTHOR
-ucspi-unix package was written by Bruce Guenter <bruceg@em.ca>
-
-.PP
-This manual page was originally written by Tomas Kuliavas 
-<tokul@bigfoot.com> for the Debian GNU/Linux system, 
-but may be used elsewhere under the GPL. 
+ucspi-unix package was written by Bruce Guenter <bruce@untroubled.org>

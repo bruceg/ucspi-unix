@@ -1,4 +1,6 @@
 
+- Rewrote the minimal man pages.
+
 - Dropped (non-existent) options from the unixclient usage documentation.
 -------------------------------------------------------------------------------
 Changes in version 1.0
