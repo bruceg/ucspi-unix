@@ -213,8 +213,6 @@ void start_child(int fd)
     }
   }
   setup_env(fd, opt_socket);
-  close(0);
-  close(1);
   if(dup2(fd, 0) == -1 || dup2(fd, 1) == -1) {
     perror("dup2");
     exit(-1);
