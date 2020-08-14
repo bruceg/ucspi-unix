@@ -180,6 +180,8 @@ int make_socket()
   mode_t old_umask;
   saddr = (struct sockaddr_un*)malloc(sizeof(struct sockaddr_un) +
 				      strlen(opt_socket) + 1);
+  if(saddr == NULL)
+    die("malloc");
   saddr->sun_family = AF_UNIX;
   strcpy(saddr->sun_path, opt_socket);
   unlink(opt_socket);

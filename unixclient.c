@@ -35,6 +35,8 @@ int do_connect(void)
     die("socket");
   size = sizeof(struct sockaddr_un) + strlen(opt_socket)+1;
   saddr = (struct sockaddr_un*)malloc(size);
+  if(saddr == NULL)
+    die("malloc");
   saddr->sun_family = AF_UNIX;
   strcpy(saddr->sun_path, opt_socket);
   if(connect(s, (struct sockaddr*)saddr, SUN_LEN(saddr)) == -1)
