@@ -245,6 +245,7 @@ void handle_connection(int s)
     log_status();
     break;
   case 0:
+    close(s);
     start_child(fd);
     break;
   default:
